@@ -9,15 +9,27 @@
   <div id="app">
     <h1> {{ message }} </h1> <br>
     <h2> Shopping cart </h2>
-    <li v-for="item in shoppingCart">
-      {{ item.label }} : {{ item.cost }}€
+    <!-- v-if permet de cacher objet si il est = 0 -->
+    <li v-for="item in shoppingCart" v-if="item.cost > 0">
+      <!-- v-bind permet de rendre lie dynamique raccourcie : -->
+      <a :href="item.url"> {{ item.label }} </a> : {{ item.cost }}€
     </li>
     <p>Total: {{ totalPrice }}€ </p>
     <h2>Horaires d'ouverture</h2>
     <p>Dimanche: 10h - 16h</p>
     <p>Du lundi au vendredi : 09h - 17h</p>
-    <p>Samedi : 09h30 - 18h00</p>
+    <p>Samedi : 09h30 - 18h00href</p>
   </div>
+  <div>
+    <h2>Montrer ma couleur préférée</h2>
+    <button @click="showColor">Cliquez ici !</button>
+  </div>
+  <div>
+    <h2>Changer ma couleur préférée</h2>
+    <label for="change-color">Changer ma couleur : </label>
+    <input type="text" id="change-color" @keyup.enter=" change-color " />
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script>
     const app = new Vue({
@@ -26,27 +38,38 @@
         message: 'Hello 😍 ',
         shoppingCart: [{
             label: 'Pommes',
-            cost: 6
+            cost: 6,
+            url: '/apples.html'
           },
           {
             label: 'Bananes',
-            cost: 2
+            cost: 2,
+            url: '/bananes.html'
           },
           {
             label: 'Noix de coco',
-            cost: 8
+            cost: 8,
+            url: '/noix-de-coco.html'
           }
         ]
       },
       computed: {
         totalPrice() {
           let total = 0
-          this.shoppingCart.foreach(item => {
+          this.shoppingCart.forEach(item => {
             total += item.cost
           })
           return total
         }
-      }
+      },
+      methods: {
+        showColor() {
+          alert(this.favoriteColor)
+        },
+        changeColor() {
+          this.favoriteColor = document.getElementById('change-color').value
+        },
+      },
     })
   </script>
 </body>
