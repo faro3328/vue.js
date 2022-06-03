@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <title>Mon Application Vue.js</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1> {{ message }} </h1> <br>
+    <h2> Shopping cart </h2>
+    <li v-for="item in shoppingCart">
+      {{ item.label }} : {{ item.cost }}€
+    </li>
+    <p>Total: {{ totalPrice }}€ </p>
+    <h2>Horaires d'ouverture</h2>
+    <p>Dimanche: 10h - 16h</p>
+    <p>Du lundi au vendredi : 09h - 17h</p>
+    <p>Samedi : 09h30 - 18h00</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello 😍 ',
+        shoppingCart: [{
+            label: 'Pommes',
+            cost: 6
+          },
+          {
+            label: 'Bananes',
+            cost: 2
+          },
+          {
+            label: 'Noix de coco',
+            cost: 8
+          }
+        ]
+      },
+      computed: {
+        totalPrice() {
+          let total = 0
+          this.shoppingCart.foreach(item => {
+            total += item.cost
+          })
+          return total
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
